@@ -28,6 +28,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
 	RegisterClassEx(&wc); //クラスを登録
 
+	//ウィンドウサイズの計算
+	RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+	int winW = winRect.right - winRect.left;     //ウィンドウ幅
+	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
+
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,     //ウィンドウクラス名
@@ -35,8 +41,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,      //表示位置左（おまかせ）
 		CW_USEDEFAULT,      //表示位置上（おまかせ）
-		WINDOW_WIDTH,		//ウィンドウ幅
-		WINDOW_HEIGHT,		//ウィンドウ高さ
+		winW,				//ウィンドウ幅
+		winH,				//ウィンドウ高さ
 		NULL,				//親ウインドウ（なし）
 		NULL,               //メニュー（なし）
 		hInstance,          //インスタンス
