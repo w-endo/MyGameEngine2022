@@ -1,6 +1,11 @@
 //インクルード
 #include <Windows.h>
 
+//定数宣言
+LPCWSTR WIN_CLASS_NAME =	L"SampleGame";  //ウィンドウクラス名
+const int WINDOW_WIDTH =	800;			//ウィンドウの幅
+const int WINDOW_HEIGHT =	600;			//ウィンドウの高さ
+
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -11,7 +16,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
 	wc.hInstance = hInstance;                   //インスタンスハンドル
-	wc.lpszClassName = L"SampleGame";            //ウィンドウクラス名
+	wc.lpszClassName = WIN_CLASS_NAME;            //ウィンドウクラス名
 	wc.lpfnWndProc = WndProc;                   //ウィンドウプロシージャ
 	wc.style = CS_VREDRAW | CS_HREDRAW;         //スタイル（デフォルト）
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); //アイコン
@@ -25,17 +30,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
-		L"SampleGame",         //ウィンドウクラス名
-		L"サンプルゲーム",     //タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW, //スタイル（普通のウィンドウ）
-		CW_USEDEFAULT,       //表示位置左（おまかせ）
-		CW_USEDEFAULT,       //表示位置上（おまかせ）
-		800,                 //ウィンドウ幅
-		600,                 //ウィンドウ高さ
-		NULL,                //親ウインドウ（なし）
-		NULL,                //メニュー（なし）
-		hInstance,           //インスタンス
-		NULL                 //パラメータ（なし）
+		WIN_CLASS_NAME,     //ウィンドウクラス名
+		L"サンプルゲーム",  //タイトルバーに表示する内容
+		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
+		CW_USEDEFAULT,      //表示位置左（おまかせ）
+		CW_USEDEFAULT,      //表示位置上（おまかせ）
+		WINDOW_WIDTH,		//ウィンドウ幅
+		WINDOW_HEIGHT,		//ウィンドウ高さ
+		NULL,				//親ウインドウ（なし）
+		NULL,               //メニュー（なし）
+		hInstance,          //インスタンス
+		NULL                //パラメータ（なし）
 	);
 
 	//ウィンドウを表示
