@@ -1,15 +1,19 @@
+#include <d3dcompiler.h>
 #include "Direct3D.h"
 
 
 //変数
 namespace Direct3D
 {
-	ID3D11Device* pDevice;		//デバイス
-	ID3D11DeviceContext* pContext;		//デバイスコンテキスト
-	IDXGISwapChain* pSwapChain;		//スワップチェイン
+	ID3D11Device* pDevice;						//デバイス
+	ID3D11DeviceContext* pContext;				//デバイスコンテキスト
+	IDXGISwapChain* pSwapChain;					//スワップチェイン
 	ID3D11RenderTargetView* pRenderTargetView;	//レンダーターゲットビュー
 
-
+	ID3D11VertexShader* pVertexShader = nullptr;	//頂点シェーダー
+	ID3D11PixelShader*	pPixelShader = nullptr;		//ピクセルシェーダー
+	ID3D11InputLayout* pVertexLayout = nullptr;		//頂点インプットレイアウト
+	ID3D11RasterizerState* pRasterizerState = nullptr;	//ラスタライザー
 }
 
 //初期化
@@ -82,9 +86,47 @@ void Direct3D::Initialize(int winW, int winH, HWND hWnd)
 	pContext->OMSetRenderTargets(1, &pRenderTargetView, nullptr);            // 描画先を設定
 	pContext->RSSetViewports(1, &vp);
 
-
-
+	//シェーダー準備
+	InitShader();
 }
+
+//シェーダー準備
+void Direct3D::InitShader()
+{
+	// 頂点シェーダの作成（コンパイル）
+	ID3DBlob* pCompileVS = nullptr;
+	D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+	pDevice->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &pVertexShader);
+
+	//頂点インプットレイアウト
+	D3D11_INPUT_ELEMENT_DESC layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//位置
+	};
+	pDevice->CreateInputLayout(layout, 1, pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), &pVertexLayout);
+
+	pCompileVS->Release();
+
+	// ピクセルシェーダの作成（コンパイル）
+	ID3DBlob* pCompilePS = nullptr;
+	D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+	pDevice->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &pPixelShader);
+	pCompilePS->Release();
+
+	//ラスタライザ作成
+	D3D11_RASTERIZER_DESC rdc = {};
+	rdc.CullMode = D3D11_CULL_BACK;
+	rdc.FillMode = D3D11_FILL_SOLID;
+	rdc.FrontCounterClockwise = FALSE;
+	pDevice->CreateRasterizerState(&rdc, &pRasterizerState);
+
+
+	//それぞれをデバイスコンテキストにセット
+	pContext->VSSetShader(pVertexShader, NULL, 0);	//頂点シェーダー
+	pContext->PSSetShader(pPixelShader, NULL, 0);	//ピクセルシェーダー
+	pContext->IASetInputLayout(pVertexLayout);		//頂点インプットレイアウト
+	pContext->RSSetState(pRasterizerState);			//ラスタライザー
+}
+
 
 //描画開始
 void Direct3D::BeginDraw()
@@ -108,6 +150,11 @@ void Direct3D::EndDraw()
 //解放処理
 void Direct3D::Release()
 {
+	pRasterizerState->Release();
+	pVertexLayout->Release();
+	pPixelShader->Release();
+	pVertexShader->Release();
+
 	//解放処理
 	pRenderTargetView->Release();
 	pSwapChain->Release();
