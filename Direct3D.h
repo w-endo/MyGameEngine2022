@@ -8,7 +8,8 @@
 
 namespace Direct3D
 {
-	extern ID3D11Device* pDevice;	//デバイス
+	extern ID3D11Device* pDevice;				//デバイス
+	extern ID3D11DeviceContext* pContext;		//デバイスコンテキスト
 
 
 	//初期化
