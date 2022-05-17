@@ -87,8 +87,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Direct3D::EndDraw();
 		}
 	}
-	pQuad->Release();
-	delete pQuad;
+	
+	SAFE_DELETE(pQuad);
 	Direct3D::Release();
 	return 0;
 }
