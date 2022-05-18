@@ -65,7 +65,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 
 	pQuad = new Quad;
-	pQuad->Initialize();
+	hr = pQuad->Initialize();
+	if (FAILED(hr))
+	{
+		PostQuitMessage(0);
+	}
 
 
 	//メッセージループ（何か起きるのを待つ）
