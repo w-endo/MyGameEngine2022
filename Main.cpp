@@ -96,7 +96,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//•`‰æˆ—
 			Camera::Update();
-			pQuad->Draw();
+
+
+			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
+			pQuad->Draw(mat);
 
 			Direct3D::EndDraw();
 		}
