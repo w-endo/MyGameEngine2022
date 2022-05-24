@@ -18,12 +18,12 @@ HRESULT Quad::Initialize()
 	HRESULT hr;
 
 	// 頂点情報
-	XMVECTOR vertices[] =
+	VERTEX vertices[] =
 	{
-		XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（左上）
-		XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（右上）
-		XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（右下）
-		XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（左下）		
+		XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f),// 四角形の頂点（左上）
+		XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),	// 四角形の頂点（右上）
+		XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f),// 四角形の頂点（右下）
+		XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f),	// 四角形の頂点（左下）		
 	};
 
 	// 頂点データ用バッファの設定
@@ -83,6 +83,11 @@ HRESULT Quad::Initialize()
 		return hr;
 	}
 
+
+	pTexture_ = new Texture;
+	pTexture_->Load(L"Assets\\Dice.png");
+
+
 	return S_OK;
 }
 
@@ -96,12 +101,21 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
+
+	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
+	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+
+	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
+	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+
+
+
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開
 
 
 
 	//頂点バッファ
-	UINT stride = sizeof(XMVECTOR);
+	UINT stride = sizeof(VERTEX);
 	UINT offset = 0;
 	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
