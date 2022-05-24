@@ -57,6 +57,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
 
+	//COMの初期化
+	CoInitialize(nullptr);
+
+
 	HRESULT hr;
 	hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
 	if (FAILED(hr))
@@ -97,8 +101,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//描画処理
 			Camera::Update();
 
-
-			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
+			static float angle = 0;
+			angle += 0.05;
+			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
 			pQuad->Draw(mat);
 
 			Direct3D::EndDraw();
@@ -107,6 +112,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	
 	SAFE_DELETE(pQuad);
 	Direct3D::Release();
+	CoUninitialize();
 	return 0;
 }
 
