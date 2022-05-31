@@ -1,7 +1,7 @@
 //インクルード
 #include <Windows.h>
 #include "Direct3D.h"
-#include "Quad.h"
+#include "Dice.h"
 #include "Camera.h"
 
 //定数宣言
@@ -12,7 +12,7 @@ const int WINDOW_HEIGHT =	600;			//ウィンドウの高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-Quad* pQuad;
+Dice* pDice;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -69,8 +69,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	}
 
 
-	pQuad = new Quad;
-	hr = pQuad->Initialize();
+	pDice = new Dice;
+	hr = pDice->Initialize();
 	if (FAILED(hr))
 	{
 		PostQuitMessage(0);
@@ -104,13 +104,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			static float angle = 0;
 			angle += 0.05;
 			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
-			pQuad->Draw(mat);
+			pDice->Draw(mat);
 
 			Direct3D::EndDraw();
 		}
 	}
 	
-	SAFE_DELETE(pQuad);
+	SAFE_DELETE(pDice);
 	Direct3D::Release();
 	CoUninitialize();
 	return 0;
