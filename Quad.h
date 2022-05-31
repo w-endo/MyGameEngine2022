@@ -7,7 +7,7 @@
 struct CONSTANT_BUFFER
 {
 	XMMATRIX	matWVP;		//ワールド・ビュー・プロジェクションの合成行列
-	XMMATRIX	matW;
+	XMMATRIX	matNormal;
 };
 
 //頂点情報
