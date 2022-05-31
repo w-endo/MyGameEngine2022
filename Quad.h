@@ -7,6 +7,7 @@
 struct CONSTANT_BUFFER
 {
 	XMMATRIX	matWVP;		//ワールド・ビュー・プロジェクションの合成行列
+	XMMATRIX	matW;
 };
 
 //頂点情報
@@ -14,6 +15,7 @@ struct VERTEX
 {
 	XMVECTOR position;	//位置
 	XMVECTOR uv;		//UV
+	XMVECTOR normal;
 };
 
 #define SAFE_DELETE_ARRAY(p) if(p != nullptr){ delete[] p; p = nullptr;}

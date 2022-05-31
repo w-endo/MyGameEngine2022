@@ -102,7 +102,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Camera::Update();
 
 			static float angle = 0;
-			angle += 0.05;
+			angle += 0.01;
 			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
 			pDice->Draw(mat);
 
