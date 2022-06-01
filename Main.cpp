@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "Direct3D.h"
 #include "Dice.h"
+#include "Sprite.h"
 #include "Camera.h"
 
 //定数宣言
@@ -13,6 +14,7 @@ const int WINDOW_HEIGHT =	600;			//ウィンドウの高さ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 Dice* pDice;
+Sprite* pSprite;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -71,6 +73,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	pDice = new Dice;
 	hr = pDice->Initialize();
+
+	pSprite = new Sprite;
+	hr = pSprite->Initialize();
+
+
+
 	if (FAILED(hr))
 	{
 		PostQuitMessage(0);
@@ -101,15 +109,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//描画処理
 			Camera::Update();
 
-			static float angle = 0;
-			angle += 0.05;
-			XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
-			pDice->Draw(mat);
+			//static float angle = 0;
+			//angle += 0.05;
+			//XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
+			//pDice->Draw(mat);
+
+			XMMATRIX mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
+			pSprite->Draw(mat);
 
 			Direct3D::EndDraw();
 		}
 	}
 	
+	SAFE_DELETE(pSprite);
 	SAFE_DELETE(pDice);
 	Direct3D::Release();
 	CoUninitialize();

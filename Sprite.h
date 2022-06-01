@@ -3,44 +3,45 @@
 #include "Texture.h"
 
 
-//コンスタントバッファー
-struct CONSTANT_BUFFER
-{
-	XMMATRIX	matWVP;		//ワールド・ビュー・プロジェクションの合成行列
-	XMMATRIX	matNormal;
-};
-//頂点情報
-struct VERTEX
-{
-	XMVECTOR position;	//位置
-	XMVECTOR uv;		//UV
-	XMVECTOR normal;	//法線
-};
+
+
 
 #define SAFE_DELETE_ARRAY(p) if(p != nullptr){ delete[] p; p = nullptr;}
 
 
 
 //四角形ポリゴン（三角形を２枚）を描画するクラス
-class Quad
+class Sprite
 {
-protected:	
+	//コンスタントバッファー
+struct CONSTANT_BUFFER
+{
+	XMMATRIX	matW;		//ワールド行列
+};
+
+//頂点情報
+struct VERTEX
+{
+	XMVECTOR position;	//位置
+	XMVECTOR uv;		//UV
+};
+protected:
 	DWORD	vertexNum_;		//頂点数
 	VERTEX* vertices_;		//頂点情報
-	ID3D11Buffer*	pVertexBuffer_;		//頂点バッファ
+	ID3D11Buffer* pVertexBuffer_;		//頂点バッファ
 
 	DWORD indexNum;			//インデックス数
-	int*	index_;			//インデックス情報
-	ID3D11Buffer*	pIndexBuffer_;		//インデックスバッファ
+	int* index_;			//インデックス情報
+	ID3D11Buffer* pIndexBuffer_;		//インデックスバッファ
 
-	ID3D11Buffer*	pConstantBuffer_;	//コンスタントバッファ
+	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
 
-	Texture*		pTexture_;		//テクスチャ
+	Texture* pTexture_;		//テクスチャ
 
 
 public:
-	Quad();
-	~Quad();
+	Sprite();
+	~Sprite();
 
 	//初期化（ポリゴンを表示するための各種情報を準備）
 	//戻値：成功／失敗
@@ -64,7 +65,7 @@ private:
 	HRESULT CreateIndexBuffer();		//インデックスバッファを作成
 
 	HRESULT CreateConstantBuffer();		//コンスタントバッファ作成
-	
+
 	HRESULT LoadTexture();				//テクスチャをロード
 
 

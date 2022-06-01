@@ -1,10 +1,10 @@
-#include "Quad.h"
+#include "Sprite.h"
 #include "Camera.h"
 
 
 //コンストラクタ
-Quad::Quad(): 
-	vertexNum_(0),	vertices_(nullptr),	pVertexBuffer_(nullptr),
+Sprite::Sprite() :
+	vertexNum_(0), vertices_(nullptr), pVertexBuffer_(nullptr),
 	indexNum(0), index_(nullptr), pIndexBuffer_(nullptr),
 	pConstantBuffer_(nullptr),
 	pTexture_(nullptr)
@@ -12,13 +12,13 @@ Quad::Quad():
 }
 
 //デストラクタ
-Quad::~Quad()
+Sprite::~Sprite()
 {
 	Release();
 }
 
 //初期化
-HRESULT Quad::Initialize()
+HRESULT Sprite::Initialize()
 {
 	//頂点情報
 	InitVertexData();					//データを用意して
@@ -51,7 +51,7 @@ HRESULT Quad::Initialize()
 
 
 //描画
-void Quad::Draw(XMMATRIX& worldMatrix)
+void Sprite::Draw(XMMATRIX& worldMatrix)
 {
 	//コンスタントバッファに情報を渡す
 	PassDataToCB(worldMatrix);
@@ -64,7 +64,7 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 }
 
 //解放
-void Quad::Release()
+void Sprite::Release()
 {
 	SAFE_DELETE_ARRAY(vertices_);
 	SAFE_DELETE_ARRAY(index_);
@@ -90,7 +90,7 @@ void Quad::Release()
 ///////////////ここからはprivate関数///////////////
 
 //頂点情報の準備
-void Quad::InitVertexData()
+void Sprite::InitVertexData()
 {
 	// 頂点情報
 	VERTEX vertices[] =
@@ -110,7 +110,7 @@ void Quad::InitVertexData()
 }
 
 //頂点バッファを作成
-HRESULT Quad::CreateVertexBuffer()
+HRESULT Sprite::CreateVertexBuffer()
 {
 	HRESULT hr;
 	D3D11_BUFFER_DESC bd_vertex;
@@ -132,7 +132,7 @@ HRESULT Quad::CreateVertexBuffer()
 }
 
 //インデックス情報を準備
-void Quad::InitIndexData()
+void Sprite::InitIndexData()
 {
 	int index[] = { 0,2,3, 0,1,2 };
 
@@ -145,7 +145,7 @@ void Quad::InitIndexData()
 }
 
 //インデックスバッファを作成
-HRESULT Quad::CreateIndexBuffer()
+HRESULT Sprite::CreateIndexBuffer()
 {
 	D3D11_BUFFER_DESC   bd;
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -170,7 +170,7 @@ HRESULT Quad::CreateIndexBuffer()
 }
 
 //コンスタントバッファ作成
-HRESULT Quad::CreateConstantBuffer()
+HRESULT Sprite::CreateConstantBuffer()
 {
 	D3D11_BUFFER_DESC cb;
 	cb.ByteWidth = sizeof(CONSTANT_BUFFER);
@@ -192,7 +192,7 @@ HRESULT Quad::CreateConstantBuffer()
 }
 
 //テクスチャをロード
-HRESULT Quad::LoadTexture()
+HRESULT Sprite::LoadTexture()
 {
 	pTexture_ = new Texture;
 
@@ -207,12 +207,10 @@ HRESULT Quad::LoadTexture()
 }
 
 //コンスタントバッファに各種情報を渡す
-void Quad::PassDataToCB(DirectX::XMMATRIX& worldMatrix)
+void Sprite::PassDataToCB(DirectX::XMMATRIX& worldMatrix)
 {
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.matNormal = XMMatrixTranspose(worldMatrix);
-
+	cb.matW = XMMatrixTranspose(worldMatrix);
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
@@ -228,7 +226,7 @@ void Quad::PassDataToCB(DirectX::XMMATRIX& worldMatrix)
 }
 
 //各バッファをパイプラインにセット
-void Quad::SetBufferToPipeline()
+void Sprite::SetBufferToPipeline()
 {
 	//頂点バッファ
 	UINT stride = sizeof(VERTEX);
