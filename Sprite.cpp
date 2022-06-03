@@ -53,6 +53,8 @@ HRESULT Sprite::Initialize()
 //描画
 void Sprite::Draw(XMMATRIX& worldMatrix)
 {
+	Direct3D::SetShader(SHADER_2D);
+
 	//コンスタントバッファに情報を渡す
 	PassDataToCB(worldMatrix);
 
