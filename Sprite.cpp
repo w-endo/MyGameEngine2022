@@ -51,12 +51,13 @@ HRESULT Sprite::Initialize()
 
 
 //描画
-void Sprite::Draw(XMMATRIX& worldMatrix)
+void Sprite::Draw(Transform& transform)
 {
 	Direct3D::SetShader(SHADER_2D);
 
 	//コンスタントバッファに情報を渡す
-	PassDataToCB(worldMatrix);
+	transform.Calclation();
+	PassDataToCB(transform.GetWorldMatrix());
 
 	//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
 	SetBufferToPipeline();
@@ -209,7 +210,7 @@ HRESULT Sprite::LoadTexture()
 }
 
 //コンスタントバッファに各種情報を渡す
-void Sprite::PassDataToCB(DirectX::XMMATRIX& worldMatrix)
+void Sprite::PassDataToCB(DirectX::XMMATRIX worldMatrix)
 {
 	CONSTANT_BUFFER cb;
 	cb.matW = XMMatrixTranspose(worldMatrix);
