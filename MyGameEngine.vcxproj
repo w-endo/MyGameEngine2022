@@ -148,6 +148,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dice.cpp" />
     <ClCompile Include="Direct3D.cpp" />
+    <ClCompile Include="Fbx.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dice.h" />
     <ClInclude Include="Direct3D.h" />
+    <ClInclude Include="Fbx.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />

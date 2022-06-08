@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "Fbx.h"
 
 //定数宣言
 LPCWSTR WIN_CLASS_NAME =	L"SampleGame";  //ウィンドウクラス名
@@ -16,6 +17,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 Dice* pDice;
 Sprite* pSprite;
+Fbx* pFbx;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -78,6 +80,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	pSprite = new Sprite;
 	hr = pSprite->Initialize();
 
+	pFbx = new Fbx;
+	hr = pFbx->Load("Assets/Oden.fbx");
+
 
 
 	if (FAILED(hr))
@@ -118,22 +123,23 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle)) * XMMatrixTranslation(0,3,0);
 
 			Transform diceTransform;
-			diceTransform.position_.y = 3.0f;
+			//diceTransform.position_.y = 3.0f;
 			diceTransform.rotate_.y = angle;
-			pDice->Draw(diceTransform);
+			pFbx->Draw(diceTransform);
 
 
 
-			Transform spriteTransform;
-			spriteTransform.scale_.x = 512.0f / 800.0f;
-			spriteTransform.scale_.y = 256.0f / 600.0f;
-			//mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
-			pSprite->Draw(spriteTransform);
+			//Transform spriteTransform;
+			//spriteTransform.scale_.x = 512.0f / 800.0f;
+			//spriteTransform.scale_.y = 256.0f / 600.0f;
+			////mat = XMMatrixScaling(512.0f/800.0f, 256.0f/600.0f, 1.0f);
+			//pSprite->Draw(spriteTransform);
 
 			Direct3D::EndDraw();
 		}
 	}
 	
+	SAFE_DELETE(pFbx);
 	SAFE_DELETE(pSprite);
 	SAFE_DELETE(pDice);
 	Direct3D::Release();
