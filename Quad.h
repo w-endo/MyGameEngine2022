@@ -17,7 +17,7 @@ struct VERTEX
 	XMVECTOR normal;	//ñ@ê¸
 };
 
-#define SAFE_DELETE_ARRAY(p) if(p != nullptr){ delete[] p; p = nullptr;}
+
 
 
 

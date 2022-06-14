@@ -126,6 +126,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//diceTransform.position_.y = 3.0f;
 			diceTransform.rotate_.y = angle;
 			pFbx->Draw(diceTransform);
+			//pDice->Draw(diceTransform);
 
 
 
