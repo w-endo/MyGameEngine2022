@@ -32,6 +32,7 @@ class Fbx
 	{
 		XMVECTOR position;
 		XMVECTOR uv;
+		XMVECTOR normal;
 	};
 	int vertexCount_;	//’¸“_”
 	int polygonCount_;	//ƒ|ƒŠƒSƒ“”
