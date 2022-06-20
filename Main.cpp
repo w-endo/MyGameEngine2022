@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Transform.h"
 #include "Fbx.h"
+#include "Input.h"
 
 //定数宣言
 LPCWSTR WIN_CLASS_NAME =	L"SampleGame";  //ウィンドウクラス名
@@ -73,6 +74,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		PostQuitMessage(0);
 	}
 
+	Input::Initialize(hWnd);
+
 
 	pDice = new Dice;
 	hr = pDice->Initialize();
@@ -108,6 +111,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		//メッセージなし
 		else
 		{
+			Input::Update();
+
+
 			//ゲームの処理
 			Direct3D::BeginDraw();
 
@@ -140,6 +146,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 	
+	Input::Release();
 	SAFE_DELETE(pFbx);
 	SAFE_DELETE(pSprite);
 	SAFE_DELETE(pDice);
