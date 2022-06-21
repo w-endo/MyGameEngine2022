@@ -113,6 +113,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		{
 			Input::Update();
 
+			if (Input::IsKeyDown(DIK_ESCAPE))
+			{
+				static int cnt = 0;
+				cnt++;
+				if (cnt >= 3)
+				{
+					PostQuitMessage(0);
+				}
+			}
+
 
 			//ƒQ[ƒ€‚Ìˆ—
 			Direct3D::BeginDraw();
