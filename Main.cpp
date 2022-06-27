@@ -4,6 +4,7 @@
 #include "Engine/Camera.h"
 #include "Engine/Transform.h"
 #include "Engine/Input.h"
+#include "Engine/RootJob.h"
 
 //定数宣言
 LPCWSTR WIN_CLASS_NAME =	L"SampleGame";  //ウィンドウクラス名
@@ -12,6 +13,9 @@ const int WINDOW_HEIGHT =	600;			//ウィンドウの高さ
 
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+
+RootJob* pRootJob;
 
 
 //エントリーポイント
@@ -72,6 +76,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Camera::Initialize();
 
+	pRootJob = new RootJob;
+	pRootJob->Initialize();
+
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -89,14 +96,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			Input::Update();
+			pRootJob->Update();
 
 
 			//ゲームの処理
 			Direct3D::BeginDraw();
 
+			Camera::Update();
 
 			//描画処理
-			Camera::Update();
+			pRootJob->Draw();
 
 
 
@@ -104,6 +113,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 	
+	pRootJob->Release();
+	SAFE_DELETE(pRootJob);
+
 	Input::Release();
 	Direct3D::Release();
 	CoUninitialize();

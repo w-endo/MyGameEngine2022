@@ -151,6 +151,7 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Quad.cpp" />
+    <ClCompile Include="Engine\RootJob.cpp" />
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Quad.h" />
+    <ClInclude Include="Engine\RootJob.h" />
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
