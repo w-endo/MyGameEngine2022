@@ -1,10 +1,13 @@
 //インクルード
 #include <Windows.h>
+#include <stdlib.h>
 #include "Engine/Direct3D.h"
 #include "Engine/Camera.h"
 #include "Engine/Transform.h"
 #include "Engine/Input.h"
 #include "Engine/RootJob.h"
+
+#pragma comment(lib, "winmm.lib")
 
 //定数宣言
 LPCWSTR WIN_CLASS_NAME =	L"SampleGame";  //ウィンドウクラス名
@@ -95,6 +98,31 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		//メッセージなし
 		else
 		{
+			timeBeginPeriod(1);
+
+			static DWORD countFps = 0;
+			static DWORD startTime = timeGetTime();
+			DWORD nowTime = timeGetTime();
+			static DWORD lastUpdateTime = nowTime;
+
+			if (nowTime - startTime >= 1000)
+			{
+				WCHAR str[16];
+				wsprintf(str, L"%u", countFps);
+				SetWindowText(hWnd, str);
+
+				countFps = 0;
+				startTime = nowTime;
+			}
+
+			if ((nowTime - lastUpdateTime) * 60 <= 1000.0f)
+			{
+				continue;
+			}
+			lastUpdateTime = nowTime;
+
+			countFps++;
+
 			Input::Update();
 			pRootJob->UpdateSub();
 
@@ -120,6 +148,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 
 			Direct3D::EndDraw();
+
+			timeEndPeriod(1);
 		}
 	}
 	
