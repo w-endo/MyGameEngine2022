@@ -13,70 +13,88 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Engine">
+      <UniqueIdentifier>{6cc4419a-4de0-4ba2-a1eb-1d37d49c8f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine">
+      <UniqueIdentifier>{3bc6357a-fedd-4508-86e6-189a6ed64469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Direct3D.cpp">
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Direct3D.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Fbx.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Quad.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Texture.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Transform.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RootJob.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Quad.cpp">
+    <ClCompile Include="PlayScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Dice.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Fbx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Direct3D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Dice.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Fbx.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
     <FxCompile Include="Simple2D.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Direct3D.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Fbx.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Input.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Quad.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Texture.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Transform.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RootJob.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
