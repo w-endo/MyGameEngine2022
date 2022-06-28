@@ -96,7 +96,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			Input::Update();
-			pRootJob->Update();
+			pRootJob->UpdateSub();
 
 			if (Input::IsKeyUp(DIK_ESCAPE))
 			{
@@ -123,7 +123,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 	
-	pRootJob->Release();
+	pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 
 	Input::Release();

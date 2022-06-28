@@ -19,9 +19,11 @@ public:
 
 	virtual void Initialize() = 0;
 	virtual void Update() = 0;
+	void UpdateSub();
 	virtual void Draw() = 0;
 	void DrawSub();
 	virtual void Release() = 0;
+	void ReleaseSub();
 
 	template <class T>
 	void Instantiate(GameObject* parent)
