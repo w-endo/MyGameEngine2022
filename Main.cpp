@@ -115,7 +115,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Camera::Update();
 
 			//•`‰æˆ—
-			pRootJob->Draw();
+			pRootJob->DrawSub();
 
 
 
