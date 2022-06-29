@@ -25,12 +25,17 @@ public:
 	virtual void Release() = 0;
 	void ReleaseSub();
 
+	void SetPosition(XMFLOAT3 position);
+	void SetPosition(float x, float y, float z);
+
+
 	template <class T>
-	void Instantiate(GameObject* parent)
+	GameObject* Instantiate(GameObject* parent)
 	{
 		T* p;
 		p = new T(parent);
 		p->Initialize();
 		childList_.push_back(p);
+		return p;
 	}
 };
