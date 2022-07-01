@@ -3,9 +3,12 @@
 #include <list>
 #include <string>
 #include "Transform.h"
+#include "Direct3D.h"
 
 class GameObject
 {
+	bool dead_;
+
 protected:
 	std::list<GameObject*> childList_;
 	Transform		transform_;
@@ -15,7 +18,7 @@ protected:
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
-	~GameObject();
+	virtual ~GameObject();
 
 	virtual void Initialize() = 0;
 	virtual void Update() = 0;
@@ -24,6 +27,9 @@ public:
 	void DrawSub();
 	virtual void Release() = 0;
 	void ReleaseSub();
+
+
+	void KillMe();
 
 	void SetPosition(XMFLOAT3 position);
 	void SetPosition(float x, float y, float z);

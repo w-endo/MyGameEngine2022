@@ -4,7 +4,8 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(GameObject* parent, const std::string& name)
+GameObject::GameObject(GameObject* parent, const std::string& name):
+	dead_(false)
 {
 }
 
@@ -20,6 +21,20 @@ void GameObject::UpdateSub()
 	{
 		(*itr)->UpdateSub();
 	}
+
+	for (auto itr = childList_.begin(); itr != childList_.end();)
+	{
+		if ((*itr)->dead_ == true)
+		{
+			(*itr)->ReleaseSub();
+			SAFE_DELETE(*itr);
+			itr = childList_.erase(itr);
+		}
+		else
+		{
+			itr++;
+		}
+	}
 }
 
 void GameObject::DrawSub()
@@ -34,12 +49,18 @@ void GameObject::DrawSub()
 
 void GameObject::ReleaseSub()
 {
-	Release();
 
 	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
 		(*itr)->ReleaseSub();
+		SAFE_DELETE(*itr);
 	}
+	Release();
+}
+
+void GameObject::KillMe()
+{
+	dead_ = true;
 }
 
 void GameObject::SetPosition(XMFLOAT3 position)
