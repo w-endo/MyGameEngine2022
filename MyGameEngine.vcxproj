@@ -151,6 +151,7 @@
     <ClCompile Include="Engine\Fbx.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
+    <ClCompile Include="Engine\Model.cpp" />
     <ClCompile Include="Engine\Quad.cpp" />
     <ClCompile Include="Engine\RootJob.cpp" />
     <ClCompile Include="Engine\Sprite.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Engine\Fbx.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Input.h" />
+    <ClInclude Include="Engine\Model.h" />
     <ClInclude Include="Engine\Quad.h" />
     <ClInclude Include="Engine\RootJob.h" />
     <ClInclude Include="Engine\Sprite.h" />
