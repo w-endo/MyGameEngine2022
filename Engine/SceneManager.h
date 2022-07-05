@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
-class RootJob:public GameObject
+class SceneManager :public GameObject
 {
 public:
-	RootJob(GameObject* parent);
-	~RootJob();
+	SceneManager(GameObject* parent);
+	~SceneManager();
 
 	void Initialize() override;
 	void Update() override;
