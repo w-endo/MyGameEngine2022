@@ -6,6 +6,8 @@
 #include "Engine/Transform.h"
 #include "Engine/Input.h"
 #include "Engine/RootJob.h"
+#include "Engine/Model.h"
+
 
 #pragma comment(lib, "winmm.lib")
 
@@ -152,6 +154,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			timeEndPeriod(1);
 		}
 	}
+
+	Model::Release();
 	
 	pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);

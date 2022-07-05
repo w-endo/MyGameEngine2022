@@ -1,6 +1,7 @@
-#include "Model.h"
 #include <vector>
+#include "Model.h"
 #include "Fbx.h"
+#include "Direct3D.h"
 
 namespace Model
 {
@@ -48,4 +49,30 @@ void Model::SetTransform(int hModel, Transform transform)
 void Model::Draw(int hModel)
 {
 	models[hModel]->pFbx->Draw(models[hModel]->transform);
+}
+
+void Model::Release()
+{
+	for (int i = 0; i < models.size(); i++)
+	{
+		bool isExist = false;	//今消そうとしてるFbxデータを参照してるやつがいるかどうか
+		for (int j = i + 1; j < models.size(); j++)
+		{
+			if (models[i]->pFbx == models[j]->pFbx)
+			{
+				isExist = true;
+				break;
+			}
+		}
+
+		//もうそのデータを誰も参照してなければ
+		if (!isExist)
+		{
+			SAFE_DELETE(models[i]->pFbx);
+		}
+
+		
+		SAFE_DELETE(models[i]);
+	}
+	models.clear();
 }
