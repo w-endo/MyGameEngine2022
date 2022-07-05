@@ -19,8 +19,23 @@ int Model::Load(std::string fileName)
 	ModelData* pData;
 	pData = new ModelData;
 	pData->fileName = fileName;
-	pData->pFbx = new Fbx;
-	pData->pFbx->Load(fileName);
+	pData->pFbx = nullptr;
+	for(int i = 0; i < models.size(); i++)
+	{
+		if (models[i]->fileName == fileName)
+		{
+			pData->pFbx = models[i]->pFbx;
+			break;
+		}
+	}
+
+	if(pData->pFbx == nullptr)
+	{
+		pData->pFbx = new Fbx;
+		pData->pFbx->Load(fileName);
+	}
+
+
 	models.push_back(pData);
 	return models.size() - 1;
 }
