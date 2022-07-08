@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine/Input.h"
 #include "Bullet.h"
+#include "Engine/SceneManager.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -45,6 +46,11 @@ void Player::Update()
 
     }
 
+    if (Input::IsKey(DIK_RETURN))
+    {
+        SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+        pSceneManager->ChangeScene(SCENE_ID_TEST);
+    }
 }
 
 //描画

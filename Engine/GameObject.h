@@ -35,6 +35,10 @@ public:
 	void SetPosition(float x, float y, float z);
 
 
+	GameObject* FindChildObject(std::string objectName);
+	GameObject* GetRootJob();
+	GameObject* FindObject(std::string objectName);
+
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
 	{
