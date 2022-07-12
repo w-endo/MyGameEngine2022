@@ -5,6 +5,8 @@
 #include "Transform.h"
 #include "Direct3D.h"
 
+class SphereCollider;
+
 class GameObject
 {
 	bool dead_;
@@ -14,6 +16,7 @@ protected:
 	Transform		transform_;
 	GameObject*		pParent_;
 	std::string		objectName_;
+	SphereCollider* pCollider_;
 
 public:
 	GameObject();
@@ -38,6 +41,10 @@ public:
 	GameObject* FindChildObject(std::string objectName);
 	GameObject* GetRootJob();
 	GameObject* FindObject(std::string objectName);
+
+	void AddCollider(SphereCollider* pCollider);
+	void Collision(GameObject* pTarget);
+	void RoundRobin(GameObject* pTarget);
 
 	template <class T>
 	GameObject* Instantiate(GameObject* parent)
