@@ -130,7 +130,7 @@ void GameObject::Collision(GameObject* pTarget)
 
 	if (x * x + y * y + z * z <= radiusSum * radiusSum)
 	{
-		int a = 0;
+		OnCollision(pTarget);
 	}
 }
 
