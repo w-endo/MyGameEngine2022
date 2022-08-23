@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine/Input.h"
 #include "Bullet.h"
+#include "MiniOden.h"
 #include "Engine/SceneManager.h"
 
 //コンストラクタ
@@ -23,6 +24,8 @@ void Player::Initialize()
     transform_.scale_.x = 0.5f;
     transform_.scale_.y = 0.5f;
     transform_.scale_.z = 0.5f;
+
+    Instantiate<MiniOden>(this);
 }
 
 //更新

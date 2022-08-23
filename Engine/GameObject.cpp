@@ -8,6 +8,11 @@ GameObject::GameObject()
 GameObject::GameObject(GameObject* parent, const std::string& name):
 	dead_(false), pParent_(parent), objectName_(name), pCollider_(nullptr)
 {
+	if (parent != nullptr)
+	{
+		//子オブジェクト用
+		transform_.pParent_ = &parent->transform_;
+	}
 }
 
 GameObject::~GameObject()
